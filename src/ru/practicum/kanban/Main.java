@@ -15,16 +15,16 @@ public class Main {
 
         tManager.addTask(task1);
         tManager.addTask(task2);
-        tManager.addTask(epic1);
-        tManager.addTask(epic2);
+        tManager.addEpic(epic1);
+        tManager.addEpic(epic2);
 
         Subtask subtask1 = new Subtask("Subtask1", "Do epic1 part1", TaskStatus.NEW, epic1.getId());
         Subtask subtask2 = new Subtask("Subtask2", "Do epic1 part2", TaskStatus.NEW, epic1.getId());
         Subtask subtask3 = new Subtask("Subtask3", "Do epic2", TaskStatus.NEW, epic2.getId());
 
-        tManager.addTask(subtask1);
-        tManager.addTask(subtask2);
-        tManager.addTask(subtask3);
+        tManager.addSubtask(subtask1);
+        tManager.addSubtask(subtask2);
+        tManager.addSubtask(subtask3);
 
         for (Task task : tManager.getListOfTasks()) {
             System.out.println(task);
@@ -50,9 +50,9 @@ public class Main {
 
         tManager.refreshTask(task1);
         tManager.refreshTask(task2);
-        tManager.refreshTask(subtask1);
-        tManager.refreshTask(subtask2);
-        tManager.refreshTask(subtask3);
+        tManager.refreshSubtask(subtask1);
+        tManager.refreshSubtask(subtask2);
+        tManager.refreshSubtask(subtask3);
 
         System.out.println("Поменяли статусы задач и подзадач");
         System.out.println();
@@ -75,8 +75,8 @@ public class Main {
         System.out.println("Удалили задачу и эпик");
         System.out.println();
 
-        tManager.deleteTask(task2.getId());
-        tManager.deleteEpic(epic2.getId());
+        tManager.removeTask(task2.getId());
+        tManager.removeEpic(epic2.getId());
 
         for (Task task : tManager.getListOfTasks()) {
             System.out.println(task);

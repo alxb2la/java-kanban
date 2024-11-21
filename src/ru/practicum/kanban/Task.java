@@ -13,7 +13,6 @@ public class Task {
         this.title = title;
         this.description = description;
         this.status = status;
-        id = -1;
     }
 
 

@@ -34,5 +34,3 @@ public class Subtask extends Task {
         return result + ", linkedEpicId='" + linkedEpicId + '\'' + '}';
     }
 }
-
-
