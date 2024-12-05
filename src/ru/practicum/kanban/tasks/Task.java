@@ -1,4 +1,4 @@
-package ru.practicum.kanban;
+package ru.practicum.kanban.tasks;
 
 import java.util.Objects;
 
@@ -7,7 +7,6 @@ public class Task {
     protected String description;
     protected int id;
     protected TaskStatus status;
-
 
     public Task(String title, String description, TaskStatus status) {
         this.title = title;
@@ -50,7 +49,6 @@ public class Task {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -66,7 +64,6 @@ public class Task {
         return Objects.hashCode(id);
     }
 
-
     @Override
     public String toString() {
         String result = "Task{" +
@@ -74,7 +71,7 @@ public class Task {
                 ", id='" + id + '\'' +
                 ", status='" + status + '\'';
 
-                if(description != null) {
+                if (description != null) {
                     result = result + ", description.length='" + description.length() + '\'' + '}';
                 } else {
                     result = result + ", description=null" + '}';

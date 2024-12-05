@@ -1,9 +1,12 @@
 package ru.practicum.kanban;
 
+import ru.practicum.kanban.managers.*;
+import ru.practicum.kanban.tasks.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.ArrayList;
+import java.util.List;
 
 class InMemoryHistoryManagerTest {
     private static InMemoryHistoryManager manager = new InMemoryHistoryManager();
@@ -16,7 +19,7 @@ class InMemoryHistoryManagerTest {
         manager.add(task);
         manager.add(epic);
         manager.add(subtask);
-        ArrayList<Task> history = manager.getHistory();
+        List<Task> history = manager.getHistory();
 
         Assertions.assertEquals(task, history.get(0));
         Assertions.assertEquals(epic, history.get(1));

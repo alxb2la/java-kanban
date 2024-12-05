@@ -1,5 +1,8 @@
 package ru.practicum.kanban;
 
+import ru.practicum.kanban.managers.*;
+import ru.practicum.kanban.tasks.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

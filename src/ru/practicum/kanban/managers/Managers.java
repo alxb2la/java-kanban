@@ -1,4 +1,4 @@
-package ru.practicum.kanban;
+package ru.practicum.kanban.managers;
 
 public class Managers {
 
@@ -9,5 +9,4 @@ public class Managers {
     public static HistoryManager getDefaultHistory() {
         return new InMemoryHistoryManager();
     }
-
 }

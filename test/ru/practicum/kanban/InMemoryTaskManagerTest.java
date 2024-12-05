@@ -1,5 +1,8 @@
 package ru.practicum.kanban;
 
+import ru.practicum.kanban.managers.*;
+import ru.practicum.kanban.tasks.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +22,7 @@ class InMemoryTaskManagerTest {
     void shouldAddTaskObjectToTasksMapAndGetListOfTasks() {
         manager.addTask(new Task("Title1","Description1", TaskStatus.NEW));
         manager.addTask(new Task("Title2","Description2", TaskStatus.IN_PROGRESS));
-        ArrayList<Task> gTasks = manager.getListOfTasks();
+        List<Task> gTasks = manager.getListOfTasks();
 
         Assertions.assertEquals("Title1", gTasks.get(0).getTitle());
         Assertions.assertEquals("Description1", gTasks.get(0).getDescription());
@@ -36,7 +39,7 @@ class InMemoryTaskManagerTest {
     void shouldAddEpicObjectToEpicsMapAndGetListOfEpics() {
         manager.addEpic(new Epic("Title1","Description1"));
         manager.addEpic(new Epic("Title2","Description2"));
-        ArrayList<Epic> gEpics = manager.getListOfEpics();
+        List<Epic> gEpics = manager.getListOfEpics();
 
         Assertions.assertEquals("Title1", gEpics.get(0).getTitle());
         Assertions.assertEquals("Description1", gEpics.get(0).getDescription());
@@ -56,7 +59,7 @@ class InMemoryTaskManagerTest {
 
         manager.addSubtask(new Subtask("Title3","Description3", TaskStatus.NEW, 1));
         manager.addSubtask(new Subtask("Title4","Description4", TaskStatus.IN_PROGRESS, 2));
-        ArrayList<Subtask> gSubtasks = manager.getListOfSubtasks();
+        List<Subtask> gSubtasks = manager.getListOfSubtasks();
 
         Assertions.assertEquals("Title3", gSubtasks.get(0).getTitle());
         Assertions.assertEquals("Description3", gSubtasks.get(0).getDescription());
@@ -74,7 +77,7 @@ class InMemoryTaskManagerTest {
         Epic epic = manager.addEpic(new Epic("Title1","Description1"));
         Subtask subtask1 = manager.addSubtask(new Subtask("Title2","Description2", TaskStatus.NEW, epic.getId()));
         Subtask subtask2 = manager.addSubtask(new Subtask("Title3","Description3", TaskStatus.IN_PROGRESS, epic.getId()));
-        ArrayList<Integer> epicSubtasksId = epic.getLinkedSubtasksId();
+        List<Integer> epicSubtasksId = epic.getLinkedSubtasksId();
 
         Assertions.assertEquals(subtask1.getId(), epicSubtasksId.get(0));
         Assertions.assertEquals(subtask2.getId(), epicSubtasksId.get(1));
@@ -83,7 +86,7 @@ class InMemoryTaskManagerTest {
     @Test
     void shouldRefreshTaskObjectInTasksMapAndGetTaskById() {
         manager.addTask(new Task("Title1","Description1", TaskStatus.NEW));
-        ArrayList<Task> gTasks = manager.getListOfTasks();
+        List<Task> gTasks = manager.getListOfTasks();
         Task rTask = new Task("Title2","Description1", TaskStatus.IN_PROGRESS);
         int gTaskId = gTasks.get(0).getId();
         rTask.setId(gTaskId);
@@ -98,7 +101,7 @@ class InMemoryTaskManagerTest {
     @Test
     void shouldRefreshEpicObjectInEpicsMapAndGetEpicById() {
         manager.addEpic(new Epic("Title1","Description1"));
-        ArrayList<Epic> gEpics = manager.getListOfEpics();
+        List<Epic> gEpics = manager.getListOfEpics();
         Epic rEpic = new Epic("Title2","Description1");
         int gEpicId = gEpics.get(0).getId();
         rEpic.setId(gEpicId);
@@ -113,7 +116,7 @@ class InMemoryTaskManagerTest {
     void shouldRefreshSubtaskObjectInSubtasksMapAndGetSubtaskById() {
         manager.addEpic(new Epic("Title1","Description1"));
         manager.addSubtask(new Subtask("Title2","Description2", TaskStatus.NEW, 1));
-        ArrayList<Subtask> gSubtasks = manager.getListOfSubtasks();
+        List<Subtask> gSubtasks = manager.getListOfSubtasks();
         int gSubtaskId = gSubtasks.get(0).getId();
         Subtask rSubtask = new Subtask("Title3","Description3", TaskStatus.IN_PROGRESS, manager.getSubtask(gSubtaskId).getLinkedEpicId());
         rSubtask.setId(gSubtaskId);
@@ -132,7 +135,7 @@ class InMemoryTaskManagerTest {
         Task task3 = manager.addTask(new Task("Title3","Description3", TaskStatus.IN_PROGRESS));
 
         manager.removeTask(task2.getId());
-        ArrayList<Task> gTasks = manager.getListOfTasks();
+        List<Task> gTasks = manager.getListOfTasks();
         Assertions.assertEquals(2, gTasks.size());
 
         manager.removeAllTasks();
@@ -147,7 +150,7 @@ class InMemoryTaskManagerTest {
         Epic epic3 = manager.addEpic(new Epic("Title3","Description3"));
 
         manager.removeEpic(epic3.getId());
-        ArrayList<Epic> gEpics = manager.getListOfEpics();
+        List<Epic> gEpics = manager.getListOfEpics();
         Assertions.assertEquals(2, gEpics.size());
 
         manager.removeAllEpics();
@@ -164,7 +167,7 @@ class InMemoryTaskManagerTest {
         Subtask subtask3 = manager.addSubtask(new Subtask("Title3","Description3", TaskStatus.IN_PROGRESS, epic1.getId()));
 
         manager.removeSubtask(subtask3.getId());
-        ArrayList<Subtask> gSubtasks = manager.getListOfSubtasks();
+        List<Subtask> gSubtasks = manager.getListOfSubtasks();
         Assertions.assertEquals(2, gSubtasks.size());
 
         manager.removeAllSubtasks();

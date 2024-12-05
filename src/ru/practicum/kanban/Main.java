@@ -1,5 +1,8 @@
 package ru.practicum.kanban;
 
+import ru.practicum.kanban.managers.*;
+import ru.practicum.kanban.tasks.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -45,7 +48,6 @@ public class Main {
         tManager.getTask(task1.getId());
 
         printAllTasks(tManager);
-
     }
 
     private static void printAllTasks(TaskManager manager) {

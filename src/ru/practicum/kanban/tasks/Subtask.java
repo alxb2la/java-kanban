@@ -1,12 +1,10 @@
-package ru.practicum.kanban;
+package ru.practicum.kanban.tasks;
 
 public class Subtask extends Task {
     private int linkedEpicId;
 
-
     public Subtask(String title, String description, TaskStatus status, int linkedEpicId) {
         super(title, description, status);
-
         this.linkedEpicId = linkedEpicId;
     }
 
@@ -19,6 +17,7 @@ public class Subtask extends Task {
         this.linkedEpicId = linkedEpicId;
     }
 
+
     @Override
     public String toString() {
         String result = "Subtask{" +
@@ -26,7 +25,7 @@ public class Subtask extends Task {
                 ", id='" + id + '\'' +
                 ", status='" + status + '\'';
 
-        if(description != null) {
+        if (description != null) {
             result = result + ", description.length='" + description.length() + '\'';
         } else {
             result = result + ", description=null";

@@ -1,13 +1,16 @@
-package ru.practicum.kanban;
+package ru.practicum.kanban.managers;
 
+import ru.practicum.kanban.tasks.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final ArrayList<Task> tasksViewHistory;
+    private final List<Task> tasksViewHistory;
 
     public InMemoryHistoryManager() {
         tasksViewHistory = new ArrayList<>();
     }
+
 
     @Override
     public boolean add(Task task) {
@@ -23,7 +26,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public ArrayList<Task> getHistory() {
+    public List<Task> getHistory() {
         return tasksViewHistory;
     }
 }

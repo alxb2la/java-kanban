@@ -1,6 +1,7 @@
-package ru.practicum.kanban;
+package ru.practicum.kanban.managers;
 
-import java.util.ArrayList;
+import ru.practicum.kanban.tasks.*;
+import java.util.List;
 
 public interface TaskManager {
     Task addTask(Task newTask);
@@ -33,13 +34,13 @@ public interface TaskManager {
 
     Subtask getSubtask(int taskId);
 
-    ArrayList<Task> getListOfTasks();
+    List<Task> getListOfTasks();
 
-    ArrayList<Epic> getListOfEpics();
+    List<Epic> getListOfEpics();
 
-    ArrayList<Subtask> getListOfSubtasks();
+    List<Subtask> getListOfSubtasks();
 
-    ArrayList<Subtask> getListOfEpicSubtasks(int taskId);
+    List<Subtask> getListOfEpicSubtasks(int taskId);
 
     HistoryManager getHistoryManager();
 }

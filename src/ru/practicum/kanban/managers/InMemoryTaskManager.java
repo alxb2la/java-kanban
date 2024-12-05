@@ -1,18 +1,17 @@
-package ru.practicum.kanban;
+package ru.practicum.kanban.managers;
 
+import ru.practicum.kanban.tasks.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
     private int tasksCounter;
-
-    private HashMap<Integer, Task> tasks;
-    private HashMap<Integer, Epic> epics;
-    private HashMap<Integer, Subtask> subtasks;
-
-    private HistoryManager historyManager;
-
+    private final Map<Integer, Task> tasks;
+    private final Map<Integer, Epic> epics;
+    private final Map<Integer, Subtask> subtasks;
+    private final HistoryManager historyManager;
 
     public InMemoryTaskManager() {
         tasksCounter = 1;
@@ -28,7 +27,6 @@ public class InMemoryTaskManager implements TaskManager {
         if (newTask.getId() == 0) {
             newTask.setId(tasksCounter);
             tasks.put(tasksCounter, newTask);
-
             // increase by 1 tasksCounter (task ID)
             tasksCounter += 1;
             return newTask;
@@ -42,7 +40,6 @@ public class InMemoryTaskManager implements TaskManager {
         if (newEpic.getId() == 0) {
             newEpic.setId(tasksCounter);
             epics.put(tasksCounter, newEpic);
-
             // increase by 1 tasksCounter (task ID)
             tasksCounter += 1;
             return newEpic;
@@ -64,15 +61,12 @@ public class InMemoryTaskManager implements TaskManager {
                 subtasks.put(newSubtask.getId(), newSubtask);
 
                 Epic dirEpic = epics.get(linkedEpicId);
-                ArrayList<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
+                List<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
                 // refresh arraylist in Epic object --> add ID of created subtask.
                 linkedSubtasksId.add(newSubtask.getId());
-
                 // refresh status in Epic object --> according to technical specification of solution
                 dirEpic.setStatus(refreshEpicStatus(linkedSubtasksId));
-
                 return newSubtask;
-
             } else {
                 //System.out.println("Epic-задача с данным ID не найдена, Subtask-задача не создана.");
                 return null;
@@ -81,7 +75,6 @@ public class InMemoryTaskManager implements TaskManager {
             return null;
         }
     }
-
 
     @Override
     public boolean refreshTask(Task newTask) {
@@ -115,7 +108,7 @@ public class InMemoryTaskManager implements TaskManager {
 
             if (epics.containsKey(linkedEpicId)) {
                 Epic dirEpic = epics.get(linkedEpicId);
-                ArrayList<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
+                List<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
                 // check newSubtask ID --> contains in linkedSubtasksId ArrayList of Epic object or not
                 if (linkedSubtasksId.contains(newSubtaskId)) {
                     // refresh subtask in hashmap
@@ -136,7 +129,6 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-
     @Override
     public boolean removeTask(int taskId) {
         if (tasks.containsKey(taskId)) {
@@ -153,7 +145,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (epics.containsKey(epicId)) {
             // delete all subtasks witch linked to Epic object
             Epic dirEpic = epics.get(epicId);
-            ArrayList<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
+            List<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
             for (int subtaskId : linkedSubtasksId) {
                 subtasks.remove(subtaskId);
             }
@@ -173,7 +165,7 @@ public class InMemoryTaskManager implements TaskManager {
             Subtask subtaskToDelete = subtasks.get(subtaskId);
             int linkedEpicTaskId = subtaskToDelete.getLinkedEpicId();
             Epic dirEpic = epics.get(linkedEpicTaskId);
-            ArrayList<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
+            List<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
             // refresh arraylist in Epic object --> remove ID of subtask to delete.
             linkedSubtasksId.remove(linkedSubtasksId.indexOf(subtaskId));
             // refresh status in Epic object --> according to technical specification of solution
@@ -186,7 +178,6 @@ public class InMemoryTaskManager implements TaskManager {
             return false;
         }
     }
-
 
     @Override
     public void removeAllTasks() {
@@ -204,12 +195,11 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks.clear();
         for (int epicId : epics.keySet()) {
             Epic dirEpic = epics.get(epicId);
-            ArrayList<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
+            List<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
             linkedSubtasksId.clear();
             dirEpic.setStatus(TaskStatus.NEW);
         }
     }
-
 
     @Override
     public Task getTask(int taskId) {
@@ -238,10 +228,9 @@ public class InMemoryTaskManager implements TaskManager {
         return subtask;
     }
 
-
     @Override
-    public ArrayList<Task> getListOfTasks() {
-        ArrayList<Task> tasksToGet = new ArrayList<>();
+    public List<Task> getListOfTasks() {
+        List<Task> tasksToGet = new ArrayList<>();
 
         for (int taskId : tasks.keySet()) {
             Task dirTask = tasks.get(taskId);
@@ -252,8 +241,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Epic> getListOfEpics() {
-        ArrayList<Epic> epicsToGet = new ArrayList<>();
+    public List<Epic> getListOfEpics() {
+        List<Epic> epicsToGet = new ArrayList<>();
 
         for (int epicId : epics.keySet()) {
             Epic dirEpic = epics.get(epicId);
@@ -264,8 +253,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Subtask> getListOfSubtasks() {
-        ArrayList<Subtask> subtasksToGet = new ArrayList<>();
+    public List<Subtask> getListOfSubtasks() {
+        List<Subtask> subtasksToGet = new ArrayList<>();
 
         for (int subtaskId : subtasks.keySet()) {
             Subtask dirSubtask = subtasks.get(subtaskId);
@@ -276,11 +265,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Subtask> getListOfEpicSubtasks(int taskId) {
-        ArrayList<Subtask> subtasksToGet = new ArrayList<>();
+    public List<Subtask> getListOfEpicSubtasks(int taskId) {
+        List<Subtask> subtasksToGet = new ArrayList<>();
         Epic epic = epics.get(taskId);
 
-        ArrayList<Integer> linkedSubtasksId = epic.getLinkedSubtasksId();
+        List<Integer> linkedSubtasksId = epic.getLinkedSubtasksId();
         for (int subtaskId : linkedSubtasksId) {
             Subtask dirSubtask = subtasks.get(subtaskId);
             subtasksToGet.add(dirSubtask);
@@ -294,7 +283,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 
-    private TaskStatus refreshEpicStatus(ArrayList<Integer> linkedSubtasksId) {
+    private TaskStatus refreshEpicStatus(List<Integer> linkedSubtasksId) {
         int newStatusCounter = 0;
         int doneStatusCounter = 0;
 
