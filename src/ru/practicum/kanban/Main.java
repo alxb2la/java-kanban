@@ -74,7 +74,7 @@ public class Main {
 
         System.out.println();
         System.out.println("История:");
-        for (Task task : manager.getHistoryManager().getHistory()) {
+        for (Task task : manager.getTasksViewHistory()) {
             System.out.println(task);
         }
         System.out.println();

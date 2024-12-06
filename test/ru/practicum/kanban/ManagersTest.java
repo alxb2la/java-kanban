@@ -23,9 +23,9 @@ class ManagersTest {
             Assertions.assertEquals(2, manager.getListOfEpics().get(0).getId());
             Assertions.assertEquals(3, manager.getListOfSubtasks().get(0).getId());
 
-            Assertions.assertEquals(1, manager.getHistoryManager().getHistory().get(0).getId());
-            Assertions.assertEquals(2, manager.getHistoryManager().getHistory().get(1).getId());
-            Assertions.assertEquals(3, manager.getHistoryManager().getHistory().get(2).getId());
+            Assertions.assertEquals(1, manager.getTasksViewHistory().get(0).getId());
+            Assertions.assertEquals(2, manager.getTasksViewHistory().get(1).getId());
+            Assertions.assertEquals(3, manager.getTasksViewHistory().get(2).getId());
 
             Assertions.assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus());
         }
