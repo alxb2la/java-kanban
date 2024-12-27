@@ -20,7 +20,6 @@ public class Epic extends Task {
         this.linkedSubtasksId = linkedSubtasksId;
     }
 
-
     @Override
     public String toString() {
         String result = "Epic{" +
