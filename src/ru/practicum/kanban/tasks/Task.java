@@ -48,7 +48,6 @@ public class Task {
         this.status = status;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -71,11 +70,11 @@ public class Task {
                 ", id='" + id + '\'' +
                 ", status='" + status + '\'';
 
-                if (description != null) {
-                    result = result + ", description.length='" + description.length() + '\'' + '}';
-                } else {
-                    result = result + ", description=null" + '}';
-                }
+        if (description != null) {
+            result = result + ", description.length='" + description.length() + '\'' + '}';
+        } else {
+            result = result + ", description=null" + '}';
+        }
         return result;
     }
 }

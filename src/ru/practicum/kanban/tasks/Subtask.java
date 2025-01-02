@@ -17,7 +17,6 @@ public class Subtask extends Task {
         this.linkedEpicId = linkedEpicId;
     }
 
-
     @Override
     public String toString() {
         String result = "Subtask{" +

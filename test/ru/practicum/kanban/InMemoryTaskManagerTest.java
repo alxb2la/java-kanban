@@ -248,4 +248,38 @@ class InMemoryTaskManagerTest {
         Assertions.assertEquals(TaskStatus.IN_PROGRESS, subtask.getStatus());
         Assertions.assertEquals(3, subtask.getId());
     }
+
+    @Test
+    void ShouldBeActualListOfSubtasksInEpicTask() {	
+        Epic epic = manager.addEpic(new Epic("Title1","Description1"));
+        Subtask subtask1 = manager.addSubtask(new Subtask("Title2","Description2", TaskStatus.IN_PROGRESS, epic.getId()));
+        Subtask subtask2 = manager.addSubtask(new Subtask("Title3","Description3", TaskStatus.NEW, epic.getId()));
+        Subtask subtask3 = manager.addSubtask(new Subtask("Title4","Description4", TaskStatus.IN_PROGRESS, epic.getId()));
+
+        List<Integer> subtasksIds = epic.getLinkedSubtasksId();
+
+        Assertions.assertEquals(subtask1.getId(), subtasksIds.get(0));
+        Assertions.assertEquals(subtask2.getId(), subtasksIds.get(1));
+        Assertions.assertEquals(subtask3.getId(), subtasksIds.get(2));
+
+        manager.removeSubtask(subtask1.getId());
+        manager.removeSubtask(subtask3.getId());
+        subtasksIds = epic.getLinkedSubtasksId();
+
+        Assertions.assertEquals(subtask2.getId(), subtasksIds.get(0));
+    }
+
+    @Test
+    void CheckCorruptDataOfTasksInsideManagerAfterUsingSetMethods() {	
+    	Task task = manager.addTask(new Task("Title1","Description1", TaskStatus.NEW));
+
+    	task.setTitle("Title12345");
+    	task.setDescription("Description12345");
+    	task.setStatus(TaskStatus.DONE);
+    	List<Task> tasks = manager.getListOfTasks();
+
+    	Assertions.assertEquals("Title12345", tasks.get(0).getTitle());
+    	Assertions.assertEquals("Description12345", tasks.get(0).getDescription());
+    	Assertions.assertEquals(TaskStatus.DONE, tasks.get(0).getStatus());
+    }
 }

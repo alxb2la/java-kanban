@@ -53,15 +53,15 @@ class ManagersTest {
             manager.add(subtask);
             manager.add(subtask);
 
-            Assertions.assertEquals(10, manager.getHistory().size());
+            Assertions.assertEquals(3, manager.getHistory().size());
             Assertions.assertEquals(1, manager.getHistory().get(0).getId());
-            Assertions.assertEquals(3, manager.getHistory().get(9).getId());
+            Assertions.assertEquals(3, manager.getHistory().get(2).getId());
 
             manager.add(task);
 
-            Assertions.assertEquals(10, manager.getHistory().size());
+            Assertions.assertEquals(3, manager.getHistory().size());
             Assertions.assertEquals(2, manager.getHistory().get(0).getId());
-            Assertions.assertEquals(1, manager.getHistory().get(9).getId());
+            Assertions.assertEquals(1, manager.getHistory().get(2).getId());
         }
     }
 }
