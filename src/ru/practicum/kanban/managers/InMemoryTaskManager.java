@@ -1,6 +1,7 @@
 package ru.practicum.kanban.managers;
 
 import ru.practicum.kanban.tasks.*;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ public class InMemoryTaskManager implements TaskManager {
         subtasks = new HashMap<>();
         historyManager = Managers.getDefaultHistory();
     }
-
 
     @Override
     public Task addTask(Task newTask) {
@@ -129,8 +129,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public boolean removeTask(int taskId) {
         if (tasks.containsKey(taskId)) {
-        	// delete Task
-        	tasks.remove(taskId);
+            // delete Task
+            tasks.remove(taskId);
             // Update view history
             historyManager.remove(taskId);
             return true;
@@ -171,7 +171,7 @@ public class InMemoryTaskManager implements TaskManager {
             Epic dirEpic = epics.get(linkedEpicTaskId);
             List<Integer> linkedSubtasksId = dirEpic.getLinkedSubtasksId();
             // refresh arraylist in Epic object --> remove ID of subtask to delete.
-            linkedSubtasksId.remove((Integer)subtaskId);
+            linkedSubtasksId.remove((Integer) subtaskId);
             // refresh status in Epic object --> according to technical specification of solution
             dirEpic.setStatus(refreshEpicStatus(linkedSubtasksId));
             // delete Subtask
@@ -187,34 +187,34 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllTasks() {
-    	for (int taskId : tasks.keySet()) {
-    		// Update view history
+        for (int taskId : tasks.keySet()) {
+            // Update view history
             historyManager.remove(taskId);
-    	}
-    	tasks.clear();
+        }
+        tasks.clear();
     }
 
     @Override
     public void removeAllEpics() {
-    	for (int subtaskId : subtasks.keySet()) {
-    		// Update view history
+        for (int subtaskId : subtasks.keySet()) {
+            // Update view history
             historyManager.remove(subtaskId);
-    	}
-    	for (int epicId : epics.keySet()) {
-    		// Update view history
+        }
+        for (int epicId : epics.keySet()) {
+            // Update view history
             historyManager.remove(epicId);
-    	}
-    	epics.clear();
+        }
+        epics.clear();
         subtasks.clear();
     }
 
     @Override
     public void removeAllSubtasks() {
-    	for (int subtaskId : subtasks.keySet()) {
-    		// Update view history
+        for (int subtaskId : subtasks.keySet()) {
+            // Update view history
             historyManager.remove(subtaskId);
-    	}
-    	subtasks.clear();
+        }
+        subtasks.clear();
         for (Epic epic : epics.values()) {
             epic.getLinkedSubtasksId().clear();
             epic.setStatus(TaskStatus.NEW);

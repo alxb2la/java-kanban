@@ -111,7 +111,7 @@ public class Main {
     }
 
     private static void printHistory(TaskManager manager) {
-    	System.out.println("History:");
+        System.out.println("History:");
         for (Task task : manager.getTasksViewHistory()) {
             System.out.println(task);
         }
